@@ -6,6 +6,7 @@ import { Crud, CrudController } from "@nestjsx/crud";
 import { Course } from "./course.entity";
 import { CourseService } from "./course.service";
 import { FindByCategoryDto } from "./dto/findByCategory.dto";
+import { FindByCategory } from "./interfaces";
 import { FindByCategoryResponse } from "./responses/findByCategory.response";
 
 
@@ -35,7 +36,7 @@ export class CourseController implements CrudController<Course> {
     @Get('category/:category')
     public async findByCategory(@Param() data: FindByCategoryDto): Promise<FindByCategoryResponse> {
         return {
-            courses: await this.service.findByCategory(data)
+            courses: await this.service.findByCategory(data as FindByCategory)
         };
     }
 }
