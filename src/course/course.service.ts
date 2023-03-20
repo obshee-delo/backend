@@ -7,7 +7,7 @@ import { FindByCategory } from "./interfaces";
 
 export class CourseService extends TypeOrmCrudService<Course> {
     constructor(
-        @InjectRepository(Course) private repository: Repository<Course>
+        @InjectRepository(Course) public repository: Repository<Course>
     ) {
         super(repository);
     }

@@ -13,7 +13,7 @@ import { UserAuthorization, UserLogin } from './interfaces';
 @Injectable()
 export class UserService extends TypeOrmCrudService<User> {
     constructor(
-        @InjectRepository(User) private repository: Repository<User>,
+        @InjectRepository(User) public repository: Repository<User>,
         private authService: AuthService
     ) {
         super(repository);
