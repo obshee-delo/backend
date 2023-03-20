@@ -11,7 +11,7 @@ export class Payment {
      * Customer's user UUID.
      */
     @Column('varchar')
-    public customerUserId: string;
+    public userId: string;
 
     @Column('varchar')
     public courseName: string;
