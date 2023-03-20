@@ -1,7 +1,7 @@
 import { ClientJwtGuard } from '@backend/security/guards/jwt.guard';
 import { PermissionsGuard} from '@backend/security/guards/permissions.guard';
 import { Permissions, SetPermissions } from '@backend/security/permissions/permissions';
-import { Controller, ParseUUIDPipe, Post, Query, UseGuards } from '@nestjs/common';
+import { Controller, Param, ParseUUIDPipe, Post, Query, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { DeepPartial } from 'typeorm';
 import { Client } from './client.entity';
@@ -47,11 +47,11 @@ export class ClientController {
         };
     }
 
-    @Post('refresh')
+    @Post(':refresh')
     @UseGuards(ClientJwtGuard, PermissionsGuard)
     @SetPermissions('client.auth')
     public async refresh(
-        @Query(ParseUUIDPipe) data: RefreshDto
+        @Param() data: RefreshDto
     ): Promise<AuthorizationResponse> {
         return {
             token: await this.clientService.refresh(data),
