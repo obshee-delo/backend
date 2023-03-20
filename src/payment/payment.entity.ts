@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Receipt } from "./interfaces";
 
 
 @Entity({ name: 'payment' })
@@ -10,14 +11,11 @@ export class Payment {
      * Customer's user UUID.
      */
     @Column('varchar')
-    public customerId: string;
+    public customerUserId: string;
 
     @Column('varchar')
-    public courseId: string;
+    public courseName: string;
 
-    @Column('varchar')
-    public receiptUrl: string;
-
-    @Column('varchar')
-    public orderId: string;
+    @Column('jsonb')
+    public receipt: Receipt;
 }
