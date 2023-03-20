@@ -41,6 +41,12 @@
       ],
       "@backend/security/*": [
         "libs/security/src/*"
+      ],
+      "@backend/gateway": [
+        "libs/gateway/src"
+      ],
+      "@backend/gateway/*": [
+        "libs/gateway/src/*"
       ]
     }
   }

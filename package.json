@@ -31,6 +31,7 @@
     "@nestjs/typeorm": "^9.0.1",
     "@nestjsx/crud": "^5.0.0-alpha.3",
     "@nestjsx/crud-typeorm": "^5.0.0-alpha.3",
+    "axios": "^1.3.4",
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
@@ -90,7 +91,8 @@
       "^@orm/model(|/.*)$": "<rootDir>/libs/model/src/$1",
       "^@backend/common(|/.*)$": "<rootDir>/libs/common/src/$1",
       "^@backend/bootstrap(|/.*)$": "<rootDir>/libs/bootstrap/src/$1",
-      "^@backend/security(|/.*)$": "<rootDir>/libs/security/src/$1"
+      "^@backend/security(|/.*)$": "<rootDir>/libs/security/src/$1",
+      "^@backend/gateway(|/.*)$": "<rootDir>/libs/gateway/src/$1"
     }
   }
 }

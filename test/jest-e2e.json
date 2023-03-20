@@ -18,6 +18,8 @@
     "@backend/bootstrap/(.*)": "<rootDir>/../libs/bootstrap/src/$1",
     "@backend/bootstrap": "<rootDir>/../libs/bootstrap/src",
     "@backend/security/(.*)": "<rootDir>/../libs/security/src/$1",
-    "@backend/security": "<rootDir>/../libs/security/src"
+    "@backend/security": "<rootDir>/../libs/security/src",
+    "@backend/gateway/(.*)": "<rootDir>/../libs/gateway/src/$1",
+    "@backend/gateway": "<rootDir>/../libs/gateway/src"
   }
 }
