@@ -19,8 +19,6 @@ export interface RequestParameters {
     params?: any
 }
 
-type HttpAdapterFunction = (url: string, data?: any, config?: AxiosRequestConfig<any>) => Promise<AxiosResponse<any, any>>;
-
 
 export class ApiAdapter {
     private connectionParameters: ConnectionParameters;
