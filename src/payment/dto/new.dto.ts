@@ -1,20 +1,17 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsJSON, IsNotEmpty, IsString } from "class-validator";
+import { Receipt } from "../interfaces";
 
 
 export class PaymentNewDto {
     @IsString()
     @IsNotEmpty()
-    customerId: string;
+    userId: string;
 
     @IsString()
     @IsNotEmpty()
-    courseId: string;
+    courseName: string;
 
-    @IsString()
+    @IsJSON()
     @IsNotEmpty()
-    receiptUrl: string;
-
-    @IsString()
-    @IsNotEmpty()
-    orderId: string;
+    receipt: Receipt;
 }

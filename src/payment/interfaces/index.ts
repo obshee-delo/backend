@@ -1,6 +1,15 @@
+/**
+ * Truncated version of the YooKassa API payment object.
+ */
+export interface Receipt {
+    id: string,
+    amount: number,
+    createdAt: string,
+    description: string
+}
+
 export interface PaymentNew {
-    customerId: string,
-    courseId: string,
-    receiptUrl: string,
-    orderId: string
+    userId: string,
+    courseName: string,
+    receipt: Receipt
 }
