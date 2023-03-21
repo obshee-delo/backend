@@ -1,73 +1,114 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Инсталляция
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Без контейнеризации
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Подготовка среды:
 
-## Description
+```
+# Необходимо для локализации команд от имени администратора
+sudo -s
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+# Обновление регистра
+apt update
 
-## Installation
+# Установка среды
+apt install node
 
-```bash
-$ npm install
+# Установка пакетного менеджера
+apt install npm
+
+# Установка СУБД
+apt install postgresql-15 postgresql-contrib
+
+# Запуск СУБД
+systemctl start postgresql.service
+
+# Установка глобальных пакетов
+npm install -g npx nest typescript ts-node
+
+# Генерация .env файла
+npm run generate:dotenv
 ```
 
-## Running the app
+Подготовка базы данных:
 
-```bash
-# development
-$ npm run start
+```
+# Переключение на пользователя СУБД
+sudo -i -u postgres
 
-# watch mode
-$ npm run start:dev
+# Переключение в REPL СУБД
+psql
 
-# production mode
-$ npm run start:prod
+# Создание базы данных
+CREATE DATABASE api;
+
+# Изменение пароля пользователя
+ALTER USER postgres PASSWORD 'odsolutions';
+
+# Выход из REPL СУБД
+CTRL + Z (^Z)
+
+# Переключение на администратора
+exit
 ```
 
-## Test
+Запуск сервера:
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```
+npm run start:prod
 ```
 
-## Support
+Запуск сервера с откладкой:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```
+npm run start:dev
+```
 
-## Stay in touch
+## С контейнеризацией
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+(В данный момент в разработке)
 
-## License
+Подготовка среды:
 
-Nest is [MIT licensed](LICENSE).
+```
+# Необходимо для локализации команд от имени администратора
+sudo -s
+
+# Обновление регистра
+apt-get update
+
+# Установка docker
+apt-get remove docker docker-engine docker.io containerd runc
+apt-get update
+apt-get install \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+mkdir -m 0755 -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+apt-get update
+apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+Подготовка базы данных:
+
+```
+# Запуск контейнера СУБД
+docker-compose up postgres -d
+
+# ...
+```
+
+Запуск сервера:
+
+```
+docker-compose up api -d
+```
+
+# Поддержка
+
+[Telegram](https://t.me/ncfax)
