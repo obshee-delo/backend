@@ -23,7 +23,6 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - ./scripts:/init.sql
       - postgres:/var/lib/postgresql/data
 
 volumes:
