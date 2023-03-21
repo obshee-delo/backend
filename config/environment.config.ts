@@ -3,7 +3,6 @@ import 'dotenv/config';
 
 export interface EnvironmentConfig {
     env: string,
-    gatewayPort: number,
     hostname: string,
     databaseHost: string,
     databasePort: number,
@@ -15,8 +14,7 @@ export interface EnvironmentConfig {
 }
 
 export const environmentConfigFactory = (): EnvironmentConfig => ({
-    env: process.env.env,
-    gatewayPort: parseInt(process.env.gatewayPort),
+    env: process.env.NODE_ENV,
     hostname: process.env.hostname,
     databaseHost: process.env.databaseHost,
     databasePort: parseInt(process.env.databasePort),
