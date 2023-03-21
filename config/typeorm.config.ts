@@ -30,5 +30,5 @@ export const typeormConfig: Readonly<PostgresConnectionOptions> = {
         }
     }),
 
-    synchronize: environmentConfig.env !== 'prod' ? true : false
+    synchronize: environmentConfig.env !== 'production' ? true : false
 };
