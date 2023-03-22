@@ -7,7 +7,7 @@ import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify
 /**
  * Nest application factory for any public application(gateway).
  * 
- * Originally forked from:
+ * Idea source:
  * https://github.com/boticord/backend/blob/main/libs/boticord-factory/src/boticord-factory.ts
  */
 export class GatewayFactory {
