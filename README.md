@@ -1,67 +1,18 @@
-# Инсталляция
+# Развертка
 
 ## Без контейнеризации
 
 Подготовка среды:
 
 ```
-# Необходимо для локализации команд от имени администратора
-sudo -s
-
-# Обновление регистра
-apt update
-
-# Установка среды
-apt install node
-
-# Установка пакетного менеджера
-apt install npm
-
-# Установка СУБД
-apt install postgresql-15 postgresql-contrib
-
-# Запуск СУБД
-systemctl start postgresql.service
-
-# Установка глобальных пакетов
-npm install -g npx nest typescript ts-node
-
-# Генерация .env файла
-npm run generate:dotenv
+# Необходимы права супер-пользователя.
+./env.sh
 ```
 
-Подготовка базы данных:
+Запуск:
 
 ```
-# Переключение на пользователя СУБД
-sudo -i -u postgres
-
-# Переключение в REPL СУБД
-psql
-
-# Создание базы данных
-CREATE DATABASE api;
-
-# Изменение пароля пользователя
-ALTER USER postgres PASSWORD 'odsolutions';
-
-# Выход из REPL СУБД
-CTRL + Z (^Z)
-
-# Переключение на администратора
-exit
-```
-
-Запуск сервера:
-
-```
-npm run start:prod
-```
-
-Запуск сервера с откладкой:
-
-```
-npm run start:dev
+./start.sh
 ```
 
 ## С контейнеризацией
@@ -100,7 +51,8 @@ apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docke
 # Запуск контейнера СУБД
 docker-compose up postgres -d
 
-# ...
+# Инициализация средств базы данных
+docker exec -u postgres pg_test psql postgres postgres -f queries/init.sql
 ```
 
 Запуск сервера:
