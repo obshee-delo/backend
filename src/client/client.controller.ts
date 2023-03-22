@@ -1,17 +1,17 @@
-import { ClientJwtGuard } from '@backend/security/guards/jwt.guard';
+import { AdminJwtGuard } from '@backend/security/guards/jwt.guard';
 import { PermissionsGuard} from '@backend/security/guards/permissions.guard';
-import { Permissions, SetPermissions } from '@backend/security/permissions/permissions';
-import { Controller, Param, ParseUUIDPipe, Post, Query, UseGuards } from '@nestjs/common';
+import { Permissions } from '@backend/security/permissions/permissions';
+import { Controller, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { DeepPartial } from 'typeorm';
 import { Client } from './client.entity';
 import { ClientService } from './client.service';
 import { AuthorizationResponse } from './responses/auth.response';
 import { RefreshDto } from './dto/refresh.dto';
+import { Environment } from 'config/interfaces/environment';
 
 
 @Controller('client')
-@SetPermissions('client')
 export class ClientController {
     static {
         Permissions.enlistPermissionsGroup('client', [ 'auth' ])
@@ -19,43 +19,28 @@ export class ClientController {
 
     constructor(
         private clientService: ClientService,
-        private configService: ConfigService
+        private configService: ConfigService<Environment>
     ) {}
 
-    /**
-     * (Endpoint)
-     * Creates an application with all rights, if none exists.
-     * Returns JWT-token of that application.
-     */
-    @Post('openAccess')
-    public async openAccess(): Promise<AuthorizationResponse> {
-        return {
-            token: await this.clientService.openAccess(),
-            secret: this.configService.get<string>('jwtSecret')
-        };
-    }
-
     @Post('signup')
-    @UseGuards(ClientJwtGuard, PermissionsGuard)
-    @SetPermissions('client.auth')
+    @UseGuards(AdminJwtGuard, PermissionsGuard)
     public async signUp(
         @Query() data: DeepPartial<Client>
     ): Promise<AuthorizationResponse> {
         return {
             token: await this.clientService.signUp(data),
-            secret: this.configService.get<string>('jwtSecret')
+            secret: this.configService.get<string>('JWT_SECRET')
         };
     }
 
     @Post(':refresh')
-    @UseGuards(ClientJwtGuard, PermissionsGuard)
-    @SetPermissions('client.auth')
+    @UseGuards(AdminJwtGuard, PermissionsGuard)
     public async refresh(
         @Param() data: RefreshDto
     ): Promise<AuthorizationResponse> {
         return {
             token: await this.clientService.refresh(data),
-            secret: this.configService.get<string>('jwtSecret')
+            secret: this.configService.get<string>('JWT_SECRET')
         };
     }
 }

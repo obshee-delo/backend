@@ -21,33 +21,6 @@ export class ClientService extends TypeOrmCrudService<Client> {
         return this.authService.sign('client', data);
     }
 
-    /**
-     * Creates an application with all rights, if none exists.
-     * Returns JWT-token of that application.
-     */
-    public async openAccess(): Promise<JwtToken> {
-        let client = await this.findOne({ where: { permissions: '{*}' } });
-
-        if (client) throw new HttpException(
-            'You must clear your database to open access again.',
-            HttpStatus.FORBIDDEN
-        );
-
-        if (!client) {
-            client = Object.assign(
-                await this.repository.create(),
-                {
-                    name: 'admin',
-                    description: 'Admin application.',
-                    permissions: [ '*' ]
-                } as DeepPartial<Client>
-            );
-            await this.repository.save(client);
-        }
-
-        return this.authorize(client as DeepPartial<Client>);
-    }
-
     public async signUp(data: DeepPartial<Client>): Promise<JwtToken> {
         const client = Object.assign(await this.repository.create(), data);
         await this.repository.save(client);
