@@ -1,4 +1,6 @@
-# Non-docker solution for deployment.
+# Environment preparation for non-docker deployment.
+
+sudo -s
 
 apt update
 
