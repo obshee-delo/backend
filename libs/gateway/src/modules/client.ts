@@ -25,10 +25,6 @@ export class ClientService extends CrudService<Client> {
         super(adapter, 'client');
     }
 
-    public openAccess(): Promise<ClientAuthorizationResponse> {
-        return this.adapter.post<ClientAuthorizationResponse>('client/openAccess');
-    }
-
     public signUp(parameters: ClientSignUpRequest): Promise<ClientAuthorizationResponse> {
         return this.adapter.post<ClientAuthorizationResponse>('client/signup', parameters);
     }
