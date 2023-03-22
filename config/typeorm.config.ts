@@ -1,34 +1,35 @@
 import 'dotenv/config';
-import * as path from "path";
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
-import { environmentConfigFactory } from './environment.config';
 import { User } from '../src/user/user.entity';
+import { Client } from 'src/client/client.entity';
+import { Course } from 'src/course/course.entity';
+import { Payment } from 'src/payment/payment.entity';
 
-
-const environmentConfig = environmentConfigFactory();
 
 export const typeormConfig: Readonly<PostgresConnectionOptions> = {
     type: 'postgres',
 
-    host: environmentConfig.databaseHost,
-    database: environmentConfig.databaseName,
-    username: environmentConfig.databaseUsername,
-    port: environmentConfig.databasePort,
-    password: environmentConfig.databasePassword,
+    host: process.env.DATABASE_HOST,
+    database: process.env.DATABASE_NAME,
+    username: process.env.DATABASE_USERNAME,
+    port: parseInt(process.env.DATABASE_PORT),
+    password: process.env.DATABASE_PASSWORD,
 
     useUTC: false,
     logNotifications: true,
-    applicationName: `${ environmentConfig.hostname }@backend`,
-    migrations: [ path.join(__dirname, 'src/migration/*.ts') ],
+    applicationName: `${ process.env.HOSTNAME }@api`,
     entities: [
-        User
+        User,
+        Client,
+        Course,
+        Payment
     ],
 
-    ...(environmentConfig.databaseUseSsl === ('true' || true) && {
+    ...(process.env.databaseUseSsl === ('true' || true) && {
         ssl: {
             rejectUnauthorized: false
         }
     }),
 
-    synchronize: environmentConfig.env !== 'production' ? true : false
+    synchronize: process.env.NODE_ENV !== 'production' ? true : false
 };
