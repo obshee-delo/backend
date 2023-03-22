@@ -1,17 +1,21 @@
 import { Module } from "@nestjs/common";
-import { AdminGuard } from "./guards/admin.guard";
-import { UserJwtGuard, ClientJwtGuard } from "./guards/jwt.guard";
+import { AdminJwtGuard, ClientJwtGuard } from "./guards/jwt.guard";
 import { PermissionsGuard } from "./guards/permissions.guard";
-import { ClientJwtStrategy, UserJwtStrategy } from "./strategies/jwt.strategy";
+import { AdminJwtStrategy, ClientJwtStrategy } from "./strategies/jwt.strategy";
+import { ConfigModule } from '@nestjs/config';
 
 
 @Module({
+    imports: [
+        ConfigModule.forRoot({
+            envFilePath: '.env'
+        })
+    ],
     providers: [
-        AdminGuard,
-        UserJwtGuard,
+        AdminJwtGuard,
         ClientJwtGuard,
         PermissionsGuard,
-        UserJwtStrategy,
+        AdminJwtStrategy,
         ClientJwtStrategy
     ]
 })
