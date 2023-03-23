@@ -5,7 +5,7 @@ import { TypeOrmCrudService } from "@nestjsx/crud-typeorm";
 import { DeepPartial, Repository } from 'typeorm';
 import { Client } from "./client.entity";
 import { AuthService } from 'src/auth/auth.service';
-import { Refresh } from './interfaces';
+import { Refresh, SignUp } from './interfaces';
 
 
 @Injectable()
@@ -17,15 +17,15 @@ export class ClientService extends TypeOrmCrudService<Client> {
         super(repository);
     }
 
-    public async authorize(data: DeepPartial<Client>): Promise<JwtToken> {
+    public async authorize(data: Client): Promise<JwtToken> {
         return this.authService.sign('client', data);
     }
 
-    public async signUp(data: DeepPartial<Client>): Promise<JwtToken> {
+    public async signUp(data: SignUp): Promise<JwtToken> {
         const client = Object.assign(await this.repository.create(), data);
         await this.repository.save(client);
 
-        return this.authorize(data);
+        return this.authorize(client);
     }
 
     public async refresh({ id }: Refresh): Promise<JwtToken> | never {
@@ -33,6 +33,6 @@ export class ClientService extends TypeOrmCrudService<Client> {
         
         if (!client) throw new HttpException('Client not found.', HttpStatus.NOT_FOUND);
 
-        return this.authorize(client as DeepPartial<Client>);
+        return this.authorize(client);
     }
 }

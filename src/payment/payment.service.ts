@@ -21,7 +21,7 @@ export class PaymentService extends TypeOrmCrudService<Payment> {
     /**
      * Full payment processing.
      */
-    public async new(payment: PaymentNew) {
+    public async new(payment: PaymentNew): Promise<Payment> {
         let course = await this.courseService.repository.findOneBy({ name: payment.courseName });
         if (!course) throw new HttpException('Unknown course.', HttpStatus.NOT_FOUND);
 
@@ -37,5 +37,7 @@ export class PaymentService extends TypeOrmCrudService<Payment> {
 
         let paymentEntity = Object.assign(await this.repository.create(), payment);
         await this.repository.save(paymentEntity);
+
+        return paymentEntity;
     }
 }

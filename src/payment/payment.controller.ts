@@ -1,9 +1,9 @@
 import { ClientJwtGuard } from "@backend/security/guards/jwt.guard";
 import { PermissionsGuard } from "@backend/security/guards/permissions.guard";
 import { Permissions, SetPermissions } from "@backend/security/permissions/permissions";
-import { Controller, Post, Query, UseGuards, Response } from "@nestjs/common";
+import { Controller, Post, UseGuards, Response, Body } from "@nestjs/common";
 import { Crud, CrudController } from "@nestjsx/crud";
-import { PaymentNewDto } from "./dto/new.dto";
+import { PaymentNewDto } from "./dto";
 import { Payment } from "./payment.entity";
 import { PaymentService } from "./payment.service";
 
@@ -36,11 +36,8 @@ export class PaymentController implements CrudController<Payment> {
      */
     @Post('new')
     public async new(
-        @Query() data: PaymentNewDto,
-        @Response({ passthrough: true }) response
-    ) {
-        await this.service.new(data);
-        
-        response.status(200);
+        @Body() data: PaymentNewDto
+    ): Promise<Payment> {
+        return this.service.new(data);
     }
 }

@@ -1,13 +1,11 @@
 import { AdminJwtGuard } from '@backend/security/guards/jwt.guard';
 import { PermissionsGuard} from '@backend/security/guards/permissions.guard';
 import { Permissions } from '@backend/security/permissions/permissions';
-import { Controller, Param, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { DeepPartial } from 'typeorm';
-import { Client } from './client.entity';
 import { ClientService } from './client.service';
 import { AuthorizationResponse } from './responses/auth.response';
-import { RefreshDto } from './dto/refresh.dto';
+import { ClientRefreshDto, ClientSignUpDto } from './dto';
 import { Environment } from 'config/interfaces/environment';
 
 
@@ -25,7 +23,7 @@ export class ClientController {
     @Post('signup')
     @UseGuards(AdminJwtGuard, PermissionsGuard)
     public async signUp(
-        @Query() data: DeepPartial<Client>
+        @Body() data: ClientSignUpDto
     ): Promise<AuthorizationResponse> {
         return {
             token: await this.clientService.signUp(data),
@@ -36,7 +34,7 @@ export class ClientController {
     @Post(':refresh')
     @UseGuards(AdminJwtGuard, PermissionsGuard)
     public async refresh(
-        @Param() data: RefreshDto
+        @Param() data: ClientRefreshDto
     ): Promise<AuthorizationResponse> {
         return {
             token: await this.clientService.refresh(data),

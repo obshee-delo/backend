@@ -19,18 +19,18 @@ export class UserService extends TypeOrmCrudService<User> {
         super(repository);
     }
 
-    public async authorize({ id }: UserAuthorization): Promise<JwtToken> {
-        return this.authService.sign('user', { id });
+    public async authorize(data: UserAuthorization): Promise<JwtToken> {
+        return this.authService.sign('user', { id: data.id });
     }
 
-    public async signUp(data: DeepPartial<User>): Promise<JwtToken> {
+    public async signUp(data: User): Promise<JwtToken> {
         const salt = bcrypt.genSaltSync(10);
         const password = bcrypt.hashSync(data.password, salt);
 
         const user = Object.assign(await this.repository.create(), { ...data, password });
         await this.repository.save(user);
 
-        return this.authorize(user as UserAuthorization);
+        return this.authorize({ id: user.id });
     }
 
     public async login({ email, password }: UserLogin): Promise<JwtToken> | never {
@@ -40,6 +40,6 @@ export class UserService extends TypeOrmCrudService<User> {
         if (!bcrypt.compare(user.password, password))
             throw new HttpException('Invalid password.', HttpStatus.UNAUTHORIZED);
 
-        return this.authorize(user as UserAuthorization);
+        return this.authorize({ id: user.id });
     }
 }
