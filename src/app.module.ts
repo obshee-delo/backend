@@ -6,6 +6,9 @@ import { UserModule } from './user/user.module';
 import { ClientModule } from './client/client.module';
 import { PaymentModule } from './payment/payment.module';
 import { CourseModule } from './course/course.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { CommonModule } from '@backend/common';
 
 
 @Module({
@@ -20,9 +23,16 @@ import { CourseModule } from './course/course.module';
         UserModule,
         ClientModule,
         PaymentModule,
-        CourseModule
+        CourseModule,
+        CommonModule
     ],
-    controllers: [],
-    providers: [],
+    controllers: [
+        AppController
+    ],
+    providers: [
+        AppService
+    ]
 })
-export class AppModule {}
+export class AppModule {
+
+}
