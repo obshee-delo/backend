@@ -5,17 +5,17 @@ import { Receipt } from "./interfaces";
 @Entity({ name: 'payment' })
 export class Payment {
     @PrimaryGeneratedColumn('uuid')
-    public id: string;
+    id: string;
 
     /**
      * Customer's user UUID.
      */
     @Column('varchar')
-    public userId: string;
+    userId: string;
 
     @Column('varchar')
-    public courseName: string;
+    courseName: string;
 
     @Column('jsonb')
-    public receipt: Receipt;
+    receipt: Receipt;
 }
