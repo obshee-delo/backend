@@ -3,15 +3,15 @@ import { Receipt } from "../interfaces";
 
 
 export class PaymentNewDto {
-    @IsString()
     @IsNotEmpty()
+    @IsString()
     userId: string;
 
-    @IsString()
     @IsNotEmpty()
+    @IsString()
     courseName: string;
 
-    @IsJSON()
     @IsNotEmpty()
+    @IsJSON()
     receipt: Receipt;
 }
