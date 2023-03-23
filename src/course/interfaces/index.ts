@@ -1,3 +1,3 @@
-export interface FindByCategory {
+export interface CourseFindByCategory {
     category: string
 }
