@@ -11,7 +11,7 @@ export const typeormConfig: Readonly<PostgresConnectionOptions> = {
 
     host: process.env.DATABASE_HOST,
     database: process.env.DATABASE_NAME,
-    username: process.env.DATABASE_USERNAME,
+    username: process.env.DATABASE_USER,
     port: parseInt(process.env.DATABASE_PORT),
     password: process.env.DATABASE_PASSWORD,
 
