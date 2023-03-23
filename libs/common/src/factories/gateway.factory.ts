@@ -25,7 +25,10 @@ export class GatewayFactory {
             },
         );
 
-        app.useGlobalPipes(new ValidationPipe());
+        app.useGlobalPipes(new ValidationPipe({
+            whitelist: true,
+            transform: true
+        }));
         app.useGlobalFilters(new TypeOrmExceptionFilter());
         app.enableCors({ origin: '*' });
         app.enableShutdownHooks();
