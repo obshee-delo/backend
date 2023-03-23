@@ -1,8 +1,8 @@
 import { IsNotEmpty, IsString } from "class-validator";
 
 
-export class FindByCategoryDto {
-    @IsString()
+export class CourseFindByCategoryDto {
     @IsNotEmpty()
+    @IsString()
     category: string;
 }
