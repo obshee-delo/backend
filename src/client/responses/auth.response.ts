@@ -1,6 +1,7 @@
 import { JwtToken } from "@backend/security/security.types";
 
-export interface AuthorizationResponse {
+
+export type AuthorizationResponse = {
     token: JwtToken,
     secret: string
 }
