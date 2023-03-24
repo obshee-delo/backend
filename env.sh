@@ -30,13 +30,15 @@ apt install postgresql postgresql-contrib
 
 systemctl start postgresql.service
 
-psql -f queries/init.sql
+# Do this after pg_hba.conf configuration:
+
+npm run script:queries
+
+psql -U postgres -f queries/init.sql
 
 # Project preparations and deployment:
 
 npm run script:dotenv
-
-npm run script:queries
 
 npm run build
 
