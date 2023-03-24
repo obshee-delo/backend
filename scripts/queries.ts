@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { join } from 'path';
-import { writeFileSync } from 'fs';
+import { writeFileSync, mkdirSync } from 'fs';
 
 const queriesRootDirectory = join(__dirname, '/../queries');
 
@@ -21,6 +21,7 @@ function generateDatabaseInitQuery(queriesRootDirectory: string) {
  * Generates database query files for easier container deployment.
  */
 function generateDatabaseQueries(queriesRootDirectory: string) {
+    mkdirSync(queriesRootDirectory);
     generateDatabaseInitQuery(queriesRootDirectory);
 }
 
