@@ -6,6 +6,7 @@ import { User } from "./user.entity";
 import { UserService } from "./user.service";
 import { AuthModule } from '../auth/auth.module';
 import { SecurityModule } from "@backend/security";
+import { EmailVerificationModule } from "src/auth/verification/email/email.module";
 
 
 @Module({
@@ -13,7 +14,8 @@ import { SecurityModule } from "@backend/security";
         ConfigModule,
         TypeOrmModule.forFeature([ User ]),
         AuthModule,
-        SecurityModule
+        SecurityModule,
+        EmailVerificationModule
     ],
     controllers: [
         UserController

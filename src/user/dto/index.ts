@@ -13,7 +13,7 @@ export class UserLoginDto {
     password: string;
 }
 
-export class UserSignUpDto {
+export class UserRegisterDto {
     /**
      * To avoid bugs, use /user/signup method to create user.
      */
@@ -40,9 +40,45 @@ export class UserSignUpDto {
     @IsNotEmpty()
     @IsString()
     phoneNumber: string;
-
-    @Transform(IntoStringArray(','))
-    @IsArray()
-    @IsOptional()
-    links: string[] = [];
 }
+
+export class UserConfirmRegistrationDto {
+    @IsNotEmpty()
+    @IsString()
+    emailVerificationCode: string;
+}
+
+export class UserResetPasswordDto {
+    @IsNotEmpty()
+    @IsString()
+    email: string;
+}
+
+export class UserConfirmPasswordResetDto {
+    @IsNotEmpty()
+    @IsString()
+    emailVerificationCode: string;
+}
+
+export class UserSetPasswordDto {
+    @IsNotEmpty()
+    @IsString()
+    id: string;
+
+    @IsNotEmpty()
+    @IsString()
+    password: string;
+}
+
+export class UserRetryRegistrationVerificationDto {
+    @IsNotEmpty()
+    @IsString()
+    id: string;
+}
+
+export class UserRetryPasswordResetVerificationDto {
+    @IsNotEmpty()
+    @IsString()
+    id: string;
+}
+

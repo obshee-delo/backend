@@ -6,6 +6,12 @@ export class User {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
+    @Column('boolean', { default: false })
+    verified: boolean = false;
+
+    @Column('varchar')
+    email: string;
+
     /**
      * To avoid bugs, use /user/signup method to create user.
      */
@@ -20,9 +26,6 @@ export class User {
 
     @Column('varchar')
     birthday: string;
-
-    @Column('varchar')
-    email: string;
 
     @Column('varchar')
     pphoneNumber: string;

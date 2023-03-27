@@ -1,6 +1,10 @@
-import { JwtToken } from "@backend/security/security.types";
+import { Jwt } from "@backend/security/security.types";
 
 
-export interface AuthorizationResponse {
-    token: JwtToken
+export interface UserRegistrationResponse {
+    token: Jwt
+}
+
+export interface UserAuthorizationResponse {
+    token: Jwt
 }
