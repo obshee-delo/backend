@@ -1,2 +1,2 @@
-export type JwtToken = string;
+export type Jwt = string;
 
