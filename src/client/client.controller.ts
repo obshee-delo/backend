@@ -4,7 +4,7 @@ import { Permissions } from '@backend/security/permissions/permissions';
 import { Body, Controller, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ClientService } from './client.service';
-import { AuthorizationResponse } from './responses/auth.response';
+import { AuthorizationResponse } from './responses/index';
 import { ClientRefreshDto, ClientSignUpDto } from './dto';
 import { Environment } from 'config/interfaces/environment';
 
