@@ -9,7 +9,7 @@ export class AuthService {
         private jwtService: JwtService
     ) {}
 
-    public sign<Entity>(scope: string, entity: Entity) {
+    public sign<Entity>(scope: string, entity: Entity): string {
         return this.jwtService.sign({ scope, ...entity as DeepPartial<Entity> });
     }
 }
