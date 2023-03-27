@@ -9,12 +9,13 @@ import { CourseModule } from './course/course.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CommonModule } from '@backend/common';
+import environmentConfig from 'config/environment.config';
 
 
 @Module({
     imports: [
         ConfigModule.forRoot({
-            envFilePath: '.env'
+            load: [ environmentConfig ]
         }),
         TypeOrmModule.forRoot({
             ...typeormConfig,
