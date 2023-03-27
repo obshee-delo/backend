@@ -4,6 +4,7 @@ import { User } from '../src/user/user.entity';
 import { Client } from 'src/client/client.entity';
 import { Course } from 'src/course/course.entity';
 import { Payment } from 'src/payment/payment.entity';
+import { EmailVerification } from 'src/auth/verification/email/email.entity';
 
 
 export const typeormConfig: Readonly<PostgresConnectionOptions> = {
@@ -22,7 +23,8 @@ export const typeormConfig: Readonly<PostgresConnectionOptions> = {
         User,
         Client,
         Course,
-        Payment
+        Payment,
+        EmailVerification
     ],
 
     ...(process.env.databaseUseSsl === ('true' || true) && {
